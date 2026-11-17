@@ -1,4 +1,4 @@
-"""Chat-model factory and API error handling shared by the scheduler and quiz modules."""
+"""Chat-model factory and API error handling shared by the agent modules."""
 
 from __future__ import annotations
 
@@ -8,12 +8,13 @@ from typing import Any
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.runnables import Runnable
 
-from .config import Settings
+from src.config import Settings
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("tunescout.llm")
 
 _REQUEST_TIMEOUT_SECONDS = 90
-_MAX_RETRIES = 3  # automatic retries with backoff for transient API errors
+_MAX_RETRIES = 3
+GEMINI_OPENAI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"  # automatic retries with backoff for transient API errors
 
 
 class LLMError(Exception):
@@ -40,6 +41,16 @@ def get_chat_model(settings: Settings, temperature: float | None = None) -> Base
         )
     from langchain_openai import ChatOpenAI
 
+    if settings.llm_provider == "gemini":
+        # Google exposes Gemini through an OpenAI-compatible endpoint (free tier available).
+        return ChatOpenAI(
+            model=settings.gemini_model,
+            api_key=settings.gemini_api_key,
+            base_url=GEMINI_OPENAI_BASE_URL,
+            temperature=temperature,
+            max_retries=_MAX_RETRIES,
+            timeout=_REQUEST_TIMEOUT_SECONDS,
+        )
     return ChatOpenAI(
         model=settings.openai_model,
         api_key=settings.openai_api_key,
@@ -54,12 +65,15 @@ def friendly_api_error(exc: Exception, service: str = "the AI provider") -> tupl
     text = f"{type(exc).__name__}: {exc}"
     if "AuthenticationError" in text or "401" in text or "invalid x-api-key" in text:
         return f"{service} rejected the API key. Check the key in your .env file.", True
-    if "insufficient_quota" in text or "credit balance" in text:
+    lowered = text.lower()
+    if any(phrase in lowered for phrase in ("insufficient_quota", "credit balance", "no credits", "billing")):
         return f"Your {service} account has no remaining quota or credit. Check your billing.", True
     if "NotFoundError" in text or "model_not_found" in text:
         return f"{service} does not recognise the configured model name. Check your .env file.", True
     if "RateLimitError" in text or "429" in text:
         return f"{service} rate limit reached. Wait a minute and try again.", False
+    if "503" in text or "UNAVAILABLE" in text or "overloaded" in lowered or "high demand" in lowered:
+        return f"{service} is overloaded right now. Wait a minute and try again.", False
     if "APIConnectionError" in text or "Timeout" in text or "ConnectError" in text:
         return f"Could not reach {service}. Check your internet connection and try again.", False
     return f"{service} request failed: {exc}", False
@@ -80,4 +94,4 @@ def invoke_structured(chain: Runnable, inputs: dict[str, Any], task: str, servic
 
 
 def service_name(settings: Settings) -> str:
-    return "Anthropic" if settings.llm_provider == "anthropic" else "OpenAI"
+    return {"openai": "OpenAI", "anthropic": "Anthropic", "gemini": "Google Gemini"}[settings.llm_provider]

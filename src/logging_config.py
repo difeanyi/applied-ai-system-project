@@ -1,7 +1,7 @@
 """Central logging setup: every module logs to system.log through one handler.
 
-Modules get their logger with ``logging.getLogger(__name__)``; because they all
-live in the ``study_generator`` package, they inherit the handler set up here.
+Modules get their logger with ``logging.getLogger("tunescout.<module>")`` so they
+all inherit the handler set up here.
 """
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
-LOGGER_NAME = "study_generator"
+LOGGER_NAME = "tunescout"
 _FORMAT = "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
 
 

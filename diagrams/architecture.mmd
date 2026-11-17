@@ -1,78 +1,77 @@
-%% Data-Driven Study Syllabus and Quiz Generator: system architecture
-%% Flow: input -> ingestion (RAG 1) -> agentic scheduler -> RAG quiz generator -> output
-%% Dashed arrows = logging. Purple = human checks. Orange = automated testing/evaluation.
+%% TuneScout AI: system architecture
+%% Extends the Module 3 Music Recommender Simulation (TuneScout 1.0).
+%% Flow: plain-language request -> RAG -> agent (interpret, validate, rank, critique, explain) -> UI
+%% Dashed arrows = logging and testing. Purple = humans. Orange = automated checks (evaluators).
 
 flowchart TD
-    %% ---------- Input ----------
-    subgraph INPUT["Input"]
-        Files["Course files<br/>PDF / PPTX"]
-        Days["Exam date or<br/>number of study days"]
+    User(["Listener<br/>types a request, e.g.<br/>'something mellow for studying'"])
+
+    subgraph INPUT["Input guardrails"]
+        Guard{"Empty or over<br/>500 characters?"}
     end
 
-    %% ---------- RAG phase 1 ----------
-    subgraph INGEST["Ingestion (RAG phase 1)"]
-        Parser["Parser<br/>PyPDF2 / python-pptx"]
-        Chunker["Chunker<br/>~500 words, keeps file + page"]
-        Embed["Embeddings<br/>OpenAI or local"]
-        DB[("ChromaDB<br/>local vector store")]
+    subgraph RAG["Retriever (RAG)"]
+        KB["Knowledge base<br/>genre, mood and activity guides<br/>data/knowledge/*.md"]
+        Chroma[("ChromaDB<br/>40 embedded passages")]
+        Retriever["Retriever<br/>top 4 passages"]
     end
 
-    %% ---------- Workflow phase 1 ----------
-    subgraph AGENT["Agentic scheduler (workflow phase 1)"]
-        Planner["Planner LLM<br/>drafts day-by-day plan"]
-        PlanCheck{"Evaluator<br/>right day count?<br/>real files + pages?<br/>every file covered?"}
-        Schedule["JSON study schedule"]
+    subgraph AGENT["TuneScout agent"]
+        Interpret["Interpreter LLM<br/>request + passages -> taste<br/>profile + ranking mode"]
+        Validate{"Validator<br/>real catalog labels?<br/>numbers 0-1? real mode?"}
+        Scorer["Original scorer (Module 3)<br/>recommender.py, unchanged<br/>ranks all 18 songs"]
+        Critic{"Critic<br/>asked-for genre/mood missing?<br/>weak top score?"}
+        Explain["Explainer LLM<br/>one note per song"]
+        FactCheck{"Fact check<br/>mentions only<br/>recommended songs?"}
+        Fallback["Scorer's own reasons<br/>(fallback)"]
     end
 
-    %% ---------- Workflow phase 2 / RAG phase 2 ----------
-    subgraph QUIZ["RAG quiz generator (workflow phase 2)"]
-        Retriever["Retriever<br/>top 5 chunks per topic"]
-        QuizLLM["Quiz LLM<br/>3 MCQs from chunks only"]
-        QuizCheck{"Evaluator<br/>citation matches a<br/>retrieved chunk?<br/>4 distinct options?"}
-        NotFound["Information not found<br/>in documents."]
+    Catalog[("songs.csv<br/>18 songs")]
+
+    subgraph UI["Streamlit app"]
+        Results["Interpretation, top 5, notes,<br/>agent trace, knowledge used"]
+        Adjust["Adjust and re-rank<br/>(no AI)"]
     end
 
-    %% ---------- Output ----------
-    subgraph OUTPUT["Output: Streamlit app"]
-        UI["Schedule + quizzes<br/>with source citations"]
-    end
+    Log[["system.log<br/>retrieved passages, LLM outputs,<br/>rejections, re-plans, API errors,<br/>human overrides"]]
+    Dev(["Developer<br/>audits system.log"])
+    Tests[["pytest: 28 offline tests<br/>fake LLM + fake embeddings"]]
 
-    Student(["Student<br/>answers quizzes, checks<br/>cited pages and context"])
-    Log[["system.log<br/>ingestion status, retrieved<br/>chunk text, API errors"]]
-    Dev(["Developer<br/>reviews system.log"])
-    Tests[["pytest suite, 38 tests<br/>fake LLM + fake embeddings"]]
+    User --> Guard
+    Guard -- "rejected" --> User
+    Guard -- ok --> Retriever
+    KB --> Chroma --> Retriever
+    Retriever -- "passages" --> Interpret
+    Interpret --> Validate
+    Validate -- "problems sent back<br/>(up to 3 attempts)" --> Interpret
+    Validate -- "not about music" --> Results
+    Validate -- valid --> Scorer
+    Catalog --> Scorer
+    Scorer --> Critic
+    Critic -- "issues: re-plan once,<br/>keep the better result" --> Interpret
+    Critic -- ok --> Explain
+    Explain --> FactCheck
+    FactCheck -- "retry once" --> Explain
+    FactCheck -- "still failing" --> Fallback --> Results
+    FactCheck -- passes --> Results
+    Results --> User
+    User -- "fixes what the AI got wrong" --> Adjust
+    Adjust --> Scorer
 
-    %% Main data flow
-    Files --> Parser --> Chunker --> Embed --> DB
-    DB -- "outline: files + page titles" --> Planner
-    Days --> Planner
-    Planner --> PlanCheck
-    PlanCheck -- "fails: problems sent back<br/>(up to 3 attempts)" --> Planner
-    PlanCheck -- passes --> Schedule
-    Schedule -- "each topic" --> Retriever
-    DB --> Retriever
-    Retriever -- "chunks only" --> QuizLLM
-    QuizLLM --> QuizCheck
-    QuizCheck -- "bad questions: retry once" --> QuizLLM
-    QuizCheck -- valid --> UI
-    QuizCheck -- "no support in context" --> NotFound --> UI
-    Schedule --> UI
-    UI --> Student
-
-    %% Logging and human/test checks
-    INGEST -.-> Log
     Retriever -.-> Log
-    QuizLLM -.-> Log
-    Planner -.-> Log
+    Interpret -.-> Log
+    Critic -.-> Log
+    Adjust -.-> Log
     Log --> Dev
-    Tests -. "verifies" .-> INGEST
+    Tests -. "verifies" .-> RAG
     Tests -. "verifies" .-> AGENT
-    Tests -. "verifies" .-> QUIZ
-    Tests -. "verifies" .-> OUTPUT
+    Tests -. "verifies" .-> UI
 
     classDef human fill:#ede7f6,stroke:#5e35b1,color:#311b92
     classDef check fill:#fff3e0,stroke:#ef6c00,color:#e65100
     classDef store fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
-    class Student,Dev human
-    class PlanCheck,QuizCheck,Tests check
-    class DB,Log store
+    classDef original fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    class User,Dev human
+    class Guard,Validate,Critic,FactCheck,Tests check
+    class Chroma,Catalog,Log,KB store
+    class Scorer original

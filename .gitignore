@@ -4,8 +4,6 @@
 # Generated at runtime
 chroma_db/
 system.log
-data/uploads/*
-!data/uploads/.gitkeep
 
 # Python
 __pycache__/

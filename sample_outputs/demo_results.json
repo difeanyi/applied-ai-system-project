@@ -1,0 +1,542 @@
+[
+  {
+    "request": "Something mellow for studying, nothing too sad",
+    "status": "ok",
+    "message": "",
+    "interpretation": "You are looking for mellow, low-energy lofi music for studying that is not too sad.",
+    "profile": {
+      "favorite_genre": "lofi",
+      "favorite_mood": "chill",
+      "target_energy": 0.4,
+      "target_valence": 0.55,
+      "likes_acoustic": true
+    },
+    "ranking_mode": "energy-focused",
+    "max_score": 5.0,
+    "recommendations": [
+      {
+        "song": {
+          "id": 2,
+          "title": "Midnight Coding",
+          "artist": "LoRoom",
+          "genre": "lofi",
+          "mood": "chill",
+          "energy": 0.42,
+          "tempo_bpm": 78.0,
+          "valence": 0.56,
+          "danceability": 0.62,
+          "acousticness": 0.71
+        },
+        "score": 4.8549999999999995,
+        "reasons": [
+          "genre match: lofi (+0.5)",
+          "mood match: chill (+0.5)",
+          "energy 0.42 vs target 0.40 (+3.43)",
+          "valence 0.56 vs target 0.55 (+0.25)",
+          "acoustic sound, acousticness 0.71 (+0.18)"
+        ],
+        "note": "This is a great match with its lofi genre, chill mood, acoustic sound, and energy level close to your target."
+      },
+      {
+        "song": {
+          "id": 4,
+          "title": "Library Rain",
+          "artist": "Paper Lanterns",
+          "genre": "lofi",
+          "mood": "chill",
+          "energy": 0.35,
+          "tempo_bpm": 72.0,
+          "valence": 0.6,
+          "danceability": 0.58,
+          "acousticness": 0.86
+        },
+        "score": 4.777499999999999,
+        "reasons": [
+          "genre match: lofi (+0.5)",
+          "mood match: chill (+0.5)",
+          "energy 0.35 vs target 0.40 (+3.32)",
+          "valence 0.60 vs target 0.55 (+0.24)",
+          "acoustic sound, acousticness 0.86 (+0.21)"
+        ],
+        "note": "A strong lofi and chill track featuring an acoustic sound and low energy well-suited for studying."
+      },
+      {
+        "song": {
+          "id": 9,
+          "title": "Focus Flow",
+          "artist": "LoRoom",
+          "genre": "lofi",
+          "mood": "focused",
+          "energy": 0.4,
+          "tempo_bpm": 80.0,
+          "valence": 0.59,
+          "danceability": 0.6,
+          "acousticness": 0.78
+        },
+        "score": 4.4350000000000005,
+        "reasons": [
+          "genre match: lofi (+0.5)",
+          "energy 0.40 vs target 0.40 (+3.50)",
+          "valence 0.59 vs target 0.55 (+0.24)",
+          "acoustic sound, acousticness 0.78 (+0.20)"
+        ],
+        "note": "This lofi song hits your target energy level and has an acoustic sound to help you stay focused."
+      },
+      {
+        "song": {
+          "id": 6,
+          "title": "Spacewalk Thoughts",
+          "artist": "Orbit Bloom",
+          "genre": "ambient",
+          "mood": "chill",
+          "energy": 0.28,
+          "tempo_bpm": 60.0,
+          "valence": 0.65,
+          "danceability": 0.41,
+          "acousticness": 0.92
+        },
+        "score": 4.035,
+        "reasons": [
+          "mood match: chill (+0.5)",
+          "energy 0.28 vs target 0.40 (+3.08)",
+          "valence 0.65 vs target 0.55 (+0.23)",
+          "acoustic sound, acousticness 0.92 (+0.23)"
+        ],
+        "note": "An ambient track with a chill mood, high acousticness, and low energy."
+      },
+      {
+        "song": {
+          "id": 7,
+          "title": "Coffee Shop Stories",
+          "artist": "Slow Stereo",
+          "genre": "jazz",
+          "mood": "relaxed",
+          "energy": 0.37,
+          "tempo_bpm": 90.0,
+          "valence": 0.71,
+          "danceability": 0.54,
+          "acousticness": 0.89
+        },
+        "score": 3.8275,
+        "reasons": [
+          "energy 0.37 vs target 0.40 (+3.40)",
+          "valence 0.71 vs target 0.55 (+0.21)",
+          "acoustic sound, acousticness 0.89 (+0.22)"
+        ],
+        "note": "A jazz selection featuring a relaxed vibe, acoustic sound, and an energy level close to what you wanted."
+      }
+    ],
+    "summary": "Here are some mellow, low-energy tracks that match your request for studying without being too sad.",
+    "passages": [
+      {
+        "source": "activities.md",
+        "section": "Activity: rainy day, feeling down, reflecting",
+        "text": "Activity: rainy day, feeling down, reflecting\nSuggested catalog moods: melancholic, nostalgic, peaceful.\nSuggested catalog genres: folk, lofi, classical, country.\nTarget energy about 0.25 to 0.45; valence about 0.3 to 0.5; acoustic sound preferred.\nSuggested ranking mode: mood-first. If the user wants to be cheered up instead, use uplifting or happy moods with valence 0.75 or higher.",
+        "distance": 1.0823631286621094
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: sleep, winding down, meditation, yoga",
+        "text": "Activity: sleep, winding down, meditation, yoga\nSuggested catalog moods: peaceful, chill.\nSuggested catalog genres: ambient, classical, folk.\nTarget energy about 0.1 to 0.3; valence about 0.4 to 0.6; acoustic sound preferred.\nSuggested ranking mode: energy-focused.",
+        "distance": 1.192223072052002
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: studying, homework, reading, coding",
+        "text": "Activity: studying, homework, reading, coding\nSuggested catalog moods: focused, chill.\nSuggested catalog genres: lofi, ambient, classical, jazz.\nTarget energy about 0.35 to 0.45; valence about 0.55; acoustic sound usually preferred. Avoid lyrics-heavy, high-energy tracks.\nSuggested ranking mode: energy-focused, because steady low intensity matters more than the exact genre.",
+        "distance": 1.215185284614563
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: working, background music, coffee shop",
+        "text": "Activity: working, background music, coffee shop\nSuggested catalog moods: relaxed, chill, focused.\nSuggested catalog genres: jazz, lofi, r&b.\nTarget energy about 0.35 to 0.5; valence about 0.65.\nSuggested ranking mode: balanced.",
+        "distance": 1.2417871952056885
+      }
+    ],
+    "knowledge_used": [
+      "activities.md > Activity: studying, homework, reading, coding"
+    ],
+    "issues": [],
+    "revised": false,
+    "explanation_source": "ai",
+    "steps": [
+      "Retrieve: 4 passages (Activity: rainy day, feeling down, reflecting, Activity: sleep, winding down, meditation, yoga, Activity: studying, homework, reading, coding, Activity: working, background music, coffee shop)",
+      "Interpret: valid on attempt 1",
+      "Rank: mode=energy-focused, profile={'favorite_genre': 'lofi', 'favorite_mood': 'chill', 'target_energy': 0.4, 'target_valence': 0.55, 'likes_acoustic': True}, top=Midnight Coding (4.85)",
+      "Critique: no issues",
+      "Explain: AI notes accepted on attempt 1"
+    ]
+  },
+  {
+    "request": "High-energy songs for the gym",
+    "status": "ok",
+    "message": "",
+    "interpretation": "You want high-energy EDM tracks to power through your gym workout.",
+    "profile": {
+      "favorite_genre": "edm",
+      "favorite_mood": "intense",
+      "target_energy": 0.9,
+      "target_valence": 0.6,
+      "likes_acoustic": false
+    },
+    "ranking_mode": "energy-focused",
+    "max_score": 5.0,
+    "recommendations": [
+      {
+        "song": {
+          "id": 3,
+          "title": "Storm Runner",
+          "artist": "Voltline",
+          "genre": "rock",
+          "mood": "intense",
+          "energy": 0.91,
+          "tempo_bpm": 152.0,
+          "valence": 0.48,
+          "danceability": 0.66,
+          "acousticness": 0.1
+        },
+        "score": 4.409999999999999,
+        "reasons": [
+          "mood match: intense (+0.5)",
+          "energy 0.91 vs target 0.90 (+3.46)",
+          "valence 0.48 vs target 0.60 (+0.22)",
+          "produced sound, acousticness 0.10 (+0.23)"
+        ],
+        "note": "Storm Runner is a great fit with its intense mood and energy level of 0.91."
+      },
+      {
+        "song": {
+          "id": 5,
+          "title": "Gym Hero",
+          "artist": "Max Pulse",
+          "genre": "pop",
+          "mood": "intense",
+          "energy": 0.93,
+          "tempo_bpm": 132.0,
+          "valence": 0.77,
+          "danceability": 0.88,
+          "acousticness": 0.05
+        },
+        "score": 4.34,
+        "reasons": [
+          "mood match: intense (+0.5)",
+          "energy 0.93 vs target 0.90 (+3.40)",
+          "valence 0.77 vs target 0.60 (+0.21)",
+          "produced sound, acousticness 0.05 (+0.24)"
+        ],
+        "note": "Gym Hero matches your workout needs with an intense mood and high energy of 0.93."
+      },
+      {
+        "song": {
+          "id": 17,
+          "title": "Neon Pulse",
+          "artist": "Hyperdrive",
+          "genre": "edm",
+          "mood": "euphoric",
+          "energy": 0.95,
+          "tempo_bpm": 128.0,
+          "valence": 0.79,
+          "danceability": 0.92,
+          "acousticness": 0.02
+        },
+        "score": 4.2725,
+        "reasons": [
+          "genre match: edm (+0.5)",
+          "energy 0.95 vs target 0.90 (+3.33)",
+          "valence 0.79 vs target 0.60 (+0.20)",
+          "produced sound, acousticness 0.02 (+0.24)"
+        ],
+        "note": "Neon Pulse hits your requested edm genre with a euphoric mood and 0.95 energy."
+      },
+      {
+        "song": {
+          "id": 13,
+          "title": "Iron Tempest",
+          "artist": "Ashen Forge",
+          "genre": "metal",
+          "mood": "angry",
+          "energy": 0.97,
+          "tempo_bpm": 168.0,
+          "valence": 0.25,
+          "danceability": 0.45,
+          "acousticness": 0.03
+        },
+        "score": 3.6600000000000006,
+        "reasons": [
+          "energy 0.97 vs target 0.90 (+3.26)",
+          "valence 0.25 vs target 0.60 (+0.16)",
+          "produced sound, acousticness 0.03 (+0.24)"
+        ],
+        "note": "Iron Tempest brings an angry mood and a very high energy level of 0.97."
+      },
+      {
+        "song": {
+          "id": 1,
+          "title": "Sunrise City",
+          "artist": "Neon Echo",
+          "genre": "pop",
+          "mood": "happy",
+          "energy": 0.82,
+          "tempo_bpm": 118.0,
+          "valence": 0.84,
+          "danceability": 0.79,
+          "acousticness": 0.18
+        },
+        "score": 3.6149999999999998,
+        "reasons": [
+          "energy 0.82 vs target 0.90 (+3.22)",
+          "valence 0.84 vs target 0.60 (+0.19)",
+          "produced sound, acousticness 0.18 (+0.21)"
+        ],
+        "note": "Sunrise City brings a happy mood and an energy level of 0.82 to your session."
+      }
+    ],
+    "summary": "Here are some high-energy tracks to power through your gym workout.",
+    "passages": [
+      {
+        "source": "activities.md",
+        "section": "Activity: workout, gym, running, training",
+        "text": "Activity: workout, gym, running, training\nSuggested catalog moods: intense, euphoric, confident.\nSuggested catalog genres: edm, pop, rock, hip-hop, metal.\nTarget energy about 0.9 to 0.95; valence 0.6 or higher for motivation; produced (not acoustic) sound.\nSuggested ranking mode: energy-focused.",
+        "distance": 0.9588571786880493
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: sleep, winding down, meditation, yoga",
+        "text": "Activity: sleep, winding down, meditation, yoga\nSuggested catalog moods: peaceful, chill.\nSuggested catalog genres: ambient, classical, folk.\nTarget energy about 0.1 to 0.3; valence about 0.4 to 0.6; acoustic sound preferred.\nSuggested ranking mode: energy-focused.",
+        "distance": 1.0743556022644043
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: studying, homework, reading, coding",
+        "text": "Activity: studying, homework, reading, coding\nSuggested catalog moods: focused, chill.\nSuggested catalog genres: lofi, ambient, classical, jazz.\nTarget energy about 0.35 to 0.45; valence about 0.55; acoustic sound usually preferred. Avoid lyrics-heavy, high-energy tracks.\nSuggested ranking mode: energy-focused, because steady low intensity matters more than the exact genre.",
+        "distance": 1.0805130004882812
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: working, background music, coffee shop",
+        "text": "Activity: working, background music, coffee shop\nSuggested catalog moods: relaxed, chill, focused.\nSuggested catalog genres: jazz, lofi, r&b.\nTarget energy about 0.35 to 0.5; valence about 0.65.\nSuggested ranking mode: balanced.",
+        "distance": 1.175828218460083
+      }
+    ],
+    "knowledge_used": [
+      "activities.md > Activity: workout, gym, running, training"
+    ],
+    "issues": [],
+    "revised": false,
+    "explanation_source": "ai",
+    "steps": [
+      "Retrieve: 4 passages (Activity: workout, gym, running, training, Activity: sleep, winding down, meditation, yoga, Activity: studying, homework, reading, coding, Activity: working, background music, coffee shop)",
+      "Interpret: valid on attempt 1",
+      "Rank: mode=energy-focused, profile={'favorite_genre': 'edm', 'favorite_mood': 'intense', 'target_energy': 0.9, 'target_valence': 0.6, 'likes_acoustic': False}, top=Storm Runner (4.41)",
+      "Critique: no issues",
+      "Explain: AI notes accepted on attempt 1"
+    ]
+  },
+  {
+    "request": "Peaceful metal",
+    "status": "ok",
+    "message": "",
+    "interpretation": "You requested peaceful metal music, so we are prioritizing the metal genre to ensure it appears in your recommendations.",
+    "profile": {
+      "favorite_genre": "metal",
+      "favorite_mood": "peaceful",
+      "target_energy": 0.2,
+      "target_valence": 0.5
+    },
+    "ranking_mode": "genre-first",
+    "max_score": 5.0,
+    "recommendations": [
+      {
+        "song": {
+          "id": 13,
+          "title": "Iron Tempest",
+          "artist": "Ashen Forge",
+          "genre": "metal",
+          "mood": "angry",
+          "energy": 0.97,
+          "tempo_bpm": 168.0,
+          "valence": 0.25,
+          "danceability": 0.45,
+          "acousticness": 0.03
+        },
+        "score": 3.3025,
+        "reasons": [
+          "genre match: metal (+3.0)",
+          "energy 0.97 vs target 0.20 (+0.11)",
+          "valence 0.25 vs target 0.50 (+0.19)"
+        ],
+        "note": "This song matches the metal genre you requested."
+      },
+      {
+        "song": {
+          "id": 12,
+          "title": "Moonlit Sonata Redux",
+          "artist": "Elena Vasquez",
+          "genre": "classical",
+          "mood": "peaceful",
+          "energy": 0.18,
+          "tempo_bpm": 66.0,
+          "valence": 0.42,
+          "danceability": 0.22,
+          "acousticness": 0.97
+        },
+        "score": 1.72,
+        "reasons": [
+          "mood match: peaceful (+1.0)",
+          "energy 0.18 vs target 0.20 (+0.49)",
+          "valence 0.42 vs target 0.50 (+0.23)"
+        ],
+        "note": "This track matches the peaceful mood you wanted."
+      },
+      {
+        "song": {
+          "id": 6,
+          "title": "Spacewalk Thoughts",
+          "artist": "Orbit Bloom",
+          "genre": "ambient",
+          "mood": "chill",
+          "energy": 0.28,
+          "tempo_bpm": 60.0,
+          "valence": 0.65,
+          "danceability": 0.41,
+          "acousticness": 0.92
+        },
+        "score": 0.6725,
+        "reasons": [
+          "energy 0.28 vs target 0.20 (+0.46)",
+          "valence 0.65 vs target 0.50 (+0.21)"
+        ],
+        "note": "Included here for its close energy level."
+      },
+      {
+        "song": {
+          "id": 4,
+          "title": "Library Rain",
+          "artist": "Paper Lanterns",
+          "genre": "lofi",
+          "mood": "chill",
+          "energy": 0.35,
+          "tempo_bpm": 72.0,
+          "valence": 0.6,
+          "danceability": 0.58,
+          "acousticness": 0.86
+        },
+        "score": 0.65,
+        "reasons": [
+          "energy 0.35 vs target 0.20 (+0.43)",
+          "valence 0.60 vs target 0.50 (+0.23)"
+        ],
+        "note": "Selected because its energy is close to your target."
+      },
+      {
+        "song": {
+          "id": 18,
+          "title": "Autumn Letters",
+          "artist": "Hazel & Pine",
+          "genre": "folk",
+          "mood": "melancholic",
+          "energy": 0.3,
+          "tempo_bpm": 84.0,
+          "valence": 0.28,
+          "danceability": 0.4,
+          "acousticness": 0.9
+        },
+        "score": 0.645,
+        "reasons": [
+          "energy 0.30 vs target 0.20 (+0.45)",
+          "valence 0.28 vs target 0.50 (+0.20)"
+        ],
+        "note": "Chosen for its similar energy level."
+      }
+    ],
+    "summary": "Here are some recommendations based on your request for peaceful metal.",
+    "passages": [
+      {
+        "source": "genres.md",
+        "section": "Genre: metal",
+        "text": "Genre: metal\nCatalog genre label: metal\nAlso called: heavy metal, thrash, metalcore, headbanging music.\nSound: heavily distorted guitars, fast drums, aggressive vocals.\nTypical values: energy 0.9 to 1.0, valence 0.1 to 0.35, very low acousticness.\nClose relatives in the catalog: rock.\nNote: the catalog has only one metal song, and it is very high energy.",
+        "distance": 0.997719407081604
+      },
+      {
+        "source": "moods.md",
+        "section": "Mood: peaceful",
+        "text": "Mood: peaceful\nCatalog mood label: peaceful\nSimilar words: serene, tranquil, calm, meditative, gentle, quiet, sleepy.\nTypical values: energy 0.1 to 0.3, valence 0.3 to 0.6.\nNearby catalog moods: chill, relaxed, melancholic.",
+        "distance": 1.2873586416244507
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: sleep, winding down, meditation, yoga",
+        "text": "Activity: sleep, winding down, meditation, yoga\nSuggested catalog moods: peaceful, chill.\nSuggested catalog genres: ambient, classical, folk.\nTarget energy about 0.1 to 0.3; valence about 0.4 to 0.6; acoustic sound preferred.\nSuggested ranking mode: energy-focused.",
+        "distance": 1.2909324169158936
+      },
+      {
+        "source": "genres.md",
+        "section": "Genre: rock",
+        "text": "Genre: rock\nCatalog genre label: rock\nAlso called: guitar music, alternative, alt-rock, hard rock, classic rock, punk (closest match).\nSound: driving electric guitars, live drums, strong vocals.\nTypical values: energy 0.75 to 0.95, valence 0.4 to 0.7, low acousticness.\nClose relatives in the catalog: metal, indie pop.",
+        "distance": 1.3635210990905762
+      }
+    ],
+    "knowledge_used": [
+      "Genre: metal",
+      "Mood: peaceful"
+    ],
+    "issues": [],
+    "revised": true,
+    "explanation_source": "ai",
+    "steps": [
+      "Retrieve: 4 passages (Genre: metal, Mood: peaceful, Activity: sleep, winding down, meditation, yoga, Genre: rock)",
+      "Interpret: valid on attempt 1",
+      "Rank: mode=energy-focused, profile={'favorite_genre': 'metal', 'favorite_mood': 'peaceful', 'target_energy': 0.2, 'target_valence': 0.5}, top=Moonlit Sonata Redux (4.16)",
+      "Critique: 1 issue(s): The user asked for genre 'metal', and the catalog has 1 such song(s), but none made the top 5.",
+      "Re-plan: valid on attempt 1",
+      "Re-plan accepted: mode=genre-first, profile={'favorite_genre': 'metal', 'favorite_mood': 'peaceful', 'target_energy': 0.2, 'target_valence': 0.5}, remaining issues=0",
+      "Explain: AI notes accepted on attempt 1"
+    ]
+  },
+  {
+    "request": "Can you write my history essay for me?",
+    "status": "off_topic",
+    "message": "TuneScout can only help with music recommendations. Try describing a mood, genre, activity or energy level.",
+    "interpretation": "",
+    "profile": {},
+    "ranking_mode": "balanced",
+    "max_score": 5.0,
+    "recommendations": [],
+    "summary": "",
+    "passages": [
+      {
+        "source": "activities.md",
+        "section": "Activity: rainy day, feeling down, reflecting",
+        "text": "Activity: rainy day, feeling down, reflecting\nSuggested catalog moods: melancholic, nostalgic, peaceful.\nSuggested catalog genres: folk, lofi, classical, country.\nTarget energy about 0.25 to 0.45; valence about 0.3 to 0.5; acoustic sound preferred.\nSuggested ranking mode: mood-first. If the user wants to be cheered up instead, use uplifting or happy moods with valence 0.75 or higher.",
+        "distance": 1.8599506616592407
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: studying, homework, reading, coding",
+        "text": "Activity: studying, homework, reading, coding\nSuggested catalog moods: focused, chill.\nSuggested catalog genres: lofi, ambient, classical, jazz.\nTarget energy about 0.35 to 0.45; valence about 0.55; acoustic sound usually preferred. Avoid lyrics-heavy, high-energy tracks.\nSuggested ranking mode: energy-focused, because steady low intensity matters more than the exact genre.",
+        "distance": 1.9126052856445312
+      },
+      {
+        "source": "activities.md",
+        "section": "How to choose a ranking mode",
+        "text": "How to choose a ranking mode\ngenre-first: the user names one genre and wants to stick to it, for example \"only metal\" or \"nothing but country\".\nmood-first: the user describes a feeling and is open to any genre, for example \"something happy, any style\".\nenergy-focused: the user describes an activity where intensity matters most, such as studying, sleeping or working out.\nbalanced: everything else, or a request that mixes a genre, a mood and an energy level.",
+        "distance": 1.9263896942138672
+      },
+      {
+        "source": "activities.md",
+        "section": "Activity: dinner, date night, cooking",
+        "text": "Activity: dinner, date night, cooking\nSuggested catalog moods: romantic, relaxed.\nSuggested catalog genres: r&b, jazz.\nTarget energy about 0.4 to 0.55; valence about 0.65; medium to high acousticness.\nSuggested ranking mode: mood-first.",
+        "distance": 1.9407397508621216
+      }
+    ],
+    "knowledge_used": [],
+    "issues": [],
+    "revised": false,
+    "explanation_source": "none",
+    "steps": [
+      "Retrieve: 4 passages (Activity: rainy day, feeling down, reflecting, Activity: studying, homework, reading, coding, How to choose a ranking mode, Activity: dinner, date night, cooking)",
+      "Interpret: valid on attempt 1",
+      "Stop: not a music request"
+    ]
+  }
+]
