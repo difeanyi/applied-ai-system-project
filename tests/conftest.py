@@ -81,3 +81,32 @@ def settings(tmp_path: Path) -> Settings:
 def store(settings: Settings):
     """A real on-disk Chroma collection using a fake (offline) embedder."""
     return get_vector_store(settings, embeddings=DeterministicFakeEmbedding(size=32))
+
+
+class FakeStructuredLLM:
+    """Stands in for a chat model: returns scripted structured replies in order.
+
+    Each scripted reply is a dict (validated against the requested schema) or
+    an Exception (raised, to simulate an API failure). Every prompt is recorded
+    in ``self.calls`` so tests can inspect what the model was shown.
+    """
+
+    def __init__(self, replies: list):
+        self.replies = list(replies)
+        self.calls: list[list] = []
+
+    def with_structured_output(self, schema, include_raw: bool = False):
+        import json
+
+        from langchain_core.messages import AIMessage
+        from langchain_core.runnables import RunnableLambda
+
+        def run(prompt_value):
+            self.calls.append(prompt_value.to_messages())
+            reply = self.replies.pop(0)
+            if isinstance(reply, Exception):
+                raise reply
+            return {"raw": AIMessage(content=json.dumps(reply)),
+                    "parsed": schema.model_validate(reply), "parsing_error": None}
+
+        return RunnableLambda(run)
