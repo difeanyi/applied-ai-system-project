@@ -1,9 +1,78 @@
-%% System architecture: replace these placeholder components with your own system's parts.
-flowchart LR
-    User([User]) -->|input / query| UI[Interface<br/>CLI or Web App]
-    UI --> App[Application Logic]
-    App -->|prompt| Model[AI Model / API]
-    Model -->|response| App
-    App <-->|read / write| Data[(Data Store)]
-    App -->|output| UI
-    UI --> User
+%% Data-Driven Study Syllabus and Quiz Generator: system architecture
+%% Flow: input -> ingestion (RAG 1) -> agentic scheduler -> RAG quiz generator -> output
+%% Dashed arrows = logging. Purple = human checks. Orange = automated testing/evaluation.
+
+flowchart TD
+    %% ---------- Input ----------
+    subgraph INPUT["Input"]
+        Files["Course files<br/>PDF / PPTX"]
+        Days["Exam date or<br/>number of study days"]
+    end
+
+    %% ---------- RAG phase 1 ----------
+    subgraph INGEST["Ingestion (RAG phase 1)"]
+        Parser["Parser<br/>PyPDF2 / python-pptx"]
+        Chunker["Chunker<br/>~500 words, keeps file + page"]
+        Embed["Embeddings<br/>OpenAI or local"]
+        DB[("ChromaDB<br/>local vector store")]
+    end
+
+    %% ---------- Workflow phase 1 ----------
+    subgraph AGENT["Agentic scheduler (workflow phase 1)"]
+        Planner["Planner LLM<br/>drafts day-by-day plan"]
+        PlanCheck{"Evaluator<br/>right day count?<br/>real files + pages?<br/>every file covered?"}
+        Schedule["JSON study schedule"]
+    end
+
+    %% ---------- Workflow phase 2 / RAG phase 2 ----------
+    subgraph QUIZ["RAG quiz generator (workflow phase 2)"]
+        Retriever["Retriever<br/>top 5 chunks per topic"]
+        QuizLLM["Quiz LLM<br/>3 MCQs from chunks only"]
+        QuizCheck{"Evaluator<br/>citation matches a<br/>retrieved chunk?<br/>4 distinct options?"}
+        NotFound["Information not found<br/>in documents."]
+    end
+
+    %% ---------- Output ----------
+    subgraph OUTPUT["Output: Streamlit app"]
+        UI["Schedule + quizzes<br/>with source citations"]
+    end
+
+    Student(["Student<br/>answers quizzes, checks<br/>cited pages and context"])
+    Log[["system.log<br/>ingestion status, retrieved<br/>chunk text, API errors"]]
+    Dev(["Developer<br/>reviews system.log"])
+    Tests[["pytest suite, 38 tests<br/>fake LLM + fake embeddings"]]
+
+    %% Main data flow
+    Files --> Parser --> Chunker --> Embed --> DB
+    DB -- "outline: files + page titles" --> Planner
+    Days --> Planner
+    Planner --> PlanCheck
+    PlanCheck -- "fails: problems sent back<br/>(up to 3 attempts)" --> Planner
+    PlanCheck -- passes --> Schedule
+    Schedule -- "each topic" --> Retriever
+    DB --> Retriever
+    Retriever -- "chunks only" --> QuizLLM
+    QuizLLM --> QuizCheck
+    QuizCheck -- "bad questions: retry once" --> QuizLLM
+    QuizCheck -- valid --> UI
+    QuizCheck -- "no support in context" --> NotFound --> UI
+    Schedule --> UI
+    UI --> Student
+
+    %% Logging and human/test checks
+    INGEST -.-> Log
+    Retriever -.-> Log
+    QuizLLM -.-> Log
+    Planner -.-> Log
+    Log --> Dev
+    Tests -. "verifies" .-> INGEST
+    Tests -. "verifies" .-> AGENT
+    Tests -. "verifies" .-> QUIZ
+    Tests -. "verifies" .-> OUTPUT
+
+    classDef human fill:#ede7f6,stroke:#5e35b1,color:#311b92
+    classDef check fill:#fff3e0,stroke:#ef6c00,color:#e65100
+    classDef store fill:#e3f2fd,stroke:#1565c0,color:#0d47a1
+    class Student,Dev human
+    class PlanCheck,QuizCheck,Tests check
+    class DB,Log store
