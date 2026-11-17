@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Generated at runtime
+chroma_db/
+system.log
+data/uploads/*
+!data/uploads/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.vscode/
