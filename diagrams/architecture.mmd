@@ -1,0 +1,9 @@
+%% System architecture: replace these placeholder components with your own system's parts.
+flowchart LR
+    User([User]) -->|input / query| UI[Interface<br/>CLI or Web App]
+    UI --> App[Application Logic]
+    App -->|prompt| Model[AI Model / API]
+    Model -->|response| App
+    App <-->|read / write| Data[(Data Store)]
+    App -->|output| UI
+    UI --> User
